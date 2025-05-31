@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naivas Header with Animated Slideshow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --naivas-green: #4CAF50;
+            --naivas-orange: #FF9800;
+            --border-color: #ccc;
+            --text-color: #333;
+            --light-grey: #f0f0f0;
+            --white: #fff;
+            --gap-size: 15px; /* Define a variable for the small gap */
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--light-grey);
+        }
+
+        .header-container {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .top-bar .left-section,
+        .top-bar .right-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            color: var(--text-color);
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .logo .naivas-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--naivas-green);
+            line-height: 1;
+        }
+
+        .logo .tagline {
+            font-size: 12px;
+            color: var(--text-color);
+            margin-top: 2px;
+            line-height: 1;
+        }
+
+        .user-icon {
+            font-size: 28px;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* Delivery Bar */
+        .delivery-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .delivery-location {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            color: var(--text-color);
+        }
+
+        .delivery-location .location-icon {
+            font-size: 20px;
+            color: var(--naivas-orange);
+            margin-right: 8px;
+        }
+
+        .change-button {
+            background-color: var(--naivas-orange);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .change-button:hover {
+            background-color: #e08e00;
+        }
+
+        /* Search Bar */
+        .search-bar-container {
+            padding: 15px 20px;
+        }
+
+        .search-input-wrapper {
+            display: flex;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: var(--white);
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: none;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #888;
+        }
+
+        .search-button {
+            background-color: var(--naivas-orange);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-button .search-icon {
+            color: var(--white);
+            font-size: 20px;
+        }
+
+        /* Wallet and Cart Section */
+        .wallet-cart-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--light-grey);
+        }
+
+        .wallet-balance {
+            background-color: #2e7d32;
+            color: var(--white);
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .cart-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-icon-wrapper {
+            background-color: var(--naivas-orange);
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .cart-icon {
+            color: var(--white);
+            font-size: 22px;
+        }
+
+        .cart-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .cart-details .total-amount {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--text-color);
+            line-height: 1;
+        }
+
+        .cart-details .saved-amount {
+            font-size: 14px;
+            color: #666;
+            margin-top: 2px;
+            line-height: 1;
+        }
+
+        /* Banner Slideshow Styles */
+        .banner-slideshow-wrapper {
+            /* This is the outer container for the slider and buttons */
+            position: relative;
+            width: calc(100% - (2 * var(--gap-size))); /* Full width minus gaps */
+            max-width: 900px; /* Approximately 75% of a common desktop 1200px width */
+            margin: 20px auto; /* Vertically center and add gaps */
+            overflow: hidden; /* Hide parts of images outside the current view */
+            border-radius: 10px; /* Border radius for the whole banner */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .slides-container {
+            display: flex; /* Arrange images in a row */
+            transition: transform 0.5s ease-in-out; /* Smooth slide animation */
+            width: 100%; /* Will be dynamically adjusted by JS */
+            height: 150px;
+        }
+
+        .slides-container img {
+            width: 100%; /* Each image takes 100% of the visible slideshow-wrapper width */
+            height: auto; /* Maintain aspect ratio */
+            flex-shrink: 0; /* Prevent images from shrinking */
+            display: block; /* Remove extra space below images */
+            object-fit: cover; /* Cover the area, cropping if necessary */
+        }
+
+        /* Navigation Buttons */
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: var(--white);
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 50%; /* Circular buttons */
+            z-index: 10; /* Ensure buttons are above images */
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .prev-button {
+            left: 10px;
+        }
+
+        .next-button {
+            right: 10px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .top-bar, .delivery-bar, .wallet-cart-section {
+                padding: 10px 15px;
+            }
+
+            .logo .naivas-text {
+                font-size: 24px;
+            }
+
+            .search-input {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+
+            .search-button {
+                padding: 8px 15px;
+            }
+
+            .change-button {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+
+            .wallet-balance {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .cart-icon-wrapper {
+                padding: 6px 10px;
+            }
+
+            .cart-icon {
+                font-size: 20px;
+            }
+
+            .cart-details .total-amount {
+                font-size: 14px;
+            }
+
+            .cart-details .saved-amount {
+                font-size: 12px;
+            }
+
+            .banner-slideshow-wrapper {
+                width: calc(100% - (2 * var(--gap-size))); /* Maintain small gaps */
+                margin-left: var(--gap-size);
+                margin-right: var(--gap-size);
+            }
+
+            .slider-button {
+                padding: 8px 12px;
+                font-size: 18px;
+            }
+        }
+/* Shop by Brand Section - Optimized */
+.shop-by-brand {
+    margin: 20px var(--gap-size);
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 10px 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.shop-by-brand h2 {
+    margin: 0 0 10px 0;
+    color: var(--text-color);
+    font-size: 18px;
+}
+
+.brands-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px; /* Reduced from 15px */
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--naivas-orange) var(--light-grey);
+}
+
+.brand-category {
+    min-width: 180px; /* Slightly reduced */
+    background-color: var(--light-grey);
+    border-radius: 8px;
+    padding: 10px; /* Reduced from 15px */
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-category h3 {
+    margin: 0 0 8px 0; /* Reduced from 10px */
+    color: var(--text-color);
+    font-size: 14px; /* Slightly smaller */
+}
+
+.brands-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px; /* Reduced from 10px */
+    margin-bottom: 8px; /* Reduced from 10px */
+}
+
+.brand-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 0; /* Ensure no extra padding */
+    margin: 0; /* Ensure no extra margin */
+}
+
+.brand-image {
+    width: 100%; /* Full width of container */
+    height: 60px; /* Fixed height */
+    object-fit: contain;
+    background-color: var(--white);
+    border-radius: 8px; /* Border radius */
+    padding: 0; /* Remove padding */
+    margin-bottom: 5px;
+    border: 1px solid #eee; /* Optional: subtle border */
+}
+
+.brand-name {
+    font-size: 11px; /* Slightly smaller */
+    text-align: center;
+    word-break: break-word;
+    padding: 0 2px; /* Small side padding */
+}
+
+.see-more {
+    align-self: center;
+    background-color: var(--naivas-orange);
+    color: var(--white);
+    border: none;
+    width: 80%;
+    padding: 4px 8px; /* Smaller padding */
+    border-radius: 4px; /* Smaller radius */
+    cursor: pointer;
+
+    font-size: 11px; /* Smaller font */
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-top: auto; /* Push to bottom */
+}
+
+@media (max-width: 768px) {
+    .brand-category {
+        min-width: 160px; /* More compact on mobile */
+    }
+    
+    .brand-image {
+        height: 50px; /* Slightly smaller on mobile */
+    }
+    
+    .brands-grid {
+        gap: 6px; /* Even tighter on mobile */
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <header class="header-container">
+        <div class="top-bar">
+            <div class="left-section">
+                <i class="fas fa-bars menu-icon"></i>
+                <div class="logo">
+                    <div class="naivas-text">naivas</div>
+                    <div class="tagline">saves you money</div>
+                </div>
+            </div>
+            <div class="right-section">
+                <i class="fas fa-user user-icon"></i>
+            </div>
+        </div>
+
+        <div class="search-bar-container">
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for products">
+                <button class="search-button">
+                    <i class="fas fa-search search-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="wallet-cart-section">
+            <div class="wallet-balance">
+                Wallet Bal<br>
+                KES 0.00
+            </div>
+            <div class="cart-info">
+                <div class="cart-icon-wrapper">
+                    <i class="fas fa-shopping-basket cart-icon"></i>
+                </div>
+                <div class="cart-details">
+                    <div class="total-amount">KES 0</div>
+                    <div class="saved-amount">Saved 0</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="banner-slideshow-wrapper">
+        <div class="slides-container">
+            </div>
+        <button class="slider-button prev-button">&#10094;</button> <button class="slider-button next-button">&#10095;</button> </div>
+<!-- Shop by Brand Section -->
+<section class="shop-by-brand">
+    <h2>Shop by Brand</h2>
+    <div class="brands-container">
+        <!-- Electronics Category -->
+        <div class="brand-category">
+            <h3>Electronics</h3>
+            <div class="brands-grid">
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Samsung" class="brand-image">
+                    <span class="brand-name">Samsung</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80" alt="Apple" class="brand-image">
+                    <span class="brand-name">Apple</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Sony" class="brand-image">
+                    <span class="brand-name">Sony</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1626248801379-51a0748a5f96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="LG" class="brand-image">
+                    <span class="brand-name">LG</span>
+                </a>
+            </div>
+            <a href="electronics.html" class="see-more">See More</a>
+        </div>
+
+        <!-- Groceries Category -->
+        <div class="brand-category">
+            <h3>Groceries</h3>
+            <div class="brands-grid">
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1611270634271-0a8a4d410d6d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Brookside" class="brand-image">
+                    <span class="brand-name">Brookside</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e1ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Kerrygold" class="brand-image">
+                    <span class="brand-name">Kerrygold</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Coca-Cola" class="brand-image">
+                    <span class="brand-name">Coca-Cola</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Pepsi" class="brand-image">
+                    <span class="brand-name">Pepsi</span>
+                </a>
+            </div>
+            <a href="groceries.html" class="see-more">See More</a>
+        </div>
+
+        <!-- Fashion Category -->
+        <div class="brand-category">
+            <h3>Fashion</h3>
+            <div class="brands-grid">
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80" alt="Nike" class="brand-image">
+                    <span class="brand-name">Nike</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Adidas" class="brand-image">
+                    <span class="brand-name">Adidas</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Puma" class="brand-image">
+                    <span class="brand-name">Puma</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1590152886549-1d3e7a1cffb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Levi's" class="brand-image">
+                    <span class="brand-name">Levi's</span>
+                </a>
+            </div>
+            <a href="fashion.html" class="see-more">See More</a>
+        </div>
+
+        <!-- Home & Kitchen Category -->
+        <div class="brand-category">
+            <h3>Home & Kitchen</h3>
+            <div class="brands-grid">
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=658&q=80" alt="Tefal" class="brand-image">
+                    <span class="brand-name">Tefal</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Philips" class="brand-image">
+                    <span class="brand-name">Philips</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1591798454113-023d7379221f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Kenwood" class="brand-image">
+                    <span class="brand-name">Kenwood</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Morphy" class="brand-image">
+                    <span class="brand-name">Morphy</span>
+                </a>
+            </div>
+            <a href="home-kitchen.html" class="see-more">See More</a>
+        </div>
+
+        <!-- Beauty & Personal Care Category -->
+        <div class="brand-category">
+            <h3>Beauty & Personal Care</h3>
+            <div class="brands-grid">
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="L'Oréal" class="brand-image">
+                    <span class="brand-name">L'Oréal</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Nivea" class="brand-image">
+                    <span class="brand-name">Nivea</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Dove" class="brand-image">
+                    <span class="brand-name">Dove</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Garnier" class="brand-image">
+                    <span class="brand-name">Garnier</span>
+                </a>
+            </div>
+            <a href="beauty.html" class="see-more">See More</a>
+        </div>
+
+        <!-- Baby Products Category -->
+        <div class="brand-category">
+            <h3>Baby Products</h3>
+            <div class="brands-grid">
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1583947581924-a5c20631b9e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Pampers" class="brand-image">
+                    <span class="brand-name">Pampers</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Huggies" class="brand-image">
+                    <span class="brand-name">Huggies</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Johnson's" class="brand-image">
+                    <span class="brand-name">Johnson's</span>
+                </a>
+                <a href="#" class="brand-item">
+                    <img src="https://images.unsplash.com/photo-1583947581924-a5c20631b9e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="NAN" class="brand-image">
+                    <span class="brand-name">NAN</span>
+                </a>
+            </div>
+            <a href="baby.html" class="see-more">See More</a>
+        </div>
+    </div>
+</section>
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuIcon = document.querySelector('.menu-icon');
+            if (menuIcon) {
+                menuIcon.addEventListener('click', () => {
+                    console.log('Menu icon clicked!');
+                });
+            }
+
+            const changeButton = document.querySelector('.change-button');
+            if (changeButton) {
+                changeButton.addEventListener('click', () => {
+                    console.log('Change location button clicked!');
+                });
+            }
+
+            const searchButton = document.querySelector('.search-button');
+            const searchInput = document.querySelector('.search-input');
+            if (searchButton && searchInput) {
+                searchButton.addEventListener('click', () => {
+                    console.log('Search initiated for:', searchInput.value);
+                });
+            }
+
+            // --- Banner Slideshow Logic ---
+            const slideshowWrapper = document.querySelector('.banner-slideshow-wrapper');
+            const slidesContainer = document.querySelector('.slides-container');
+            const prevButton = document.querySelector('.prev-button');
+            const nextButton = document.querySelector('.next-button');
+
+            const images = [
+                'https://images.unsplash.com/photo-1611262588024-d12430b98920?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80',
+                'https://images.unsplash.com/photo-1542838124-fd204204b7ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                'https://images.unsplash.com/photo-1594232490793-132d733527fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                'https://images.unsplash.com/photo-1563618195880-36e3ad5d0647?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
+            ];
+
+            let currentSlide = 0;
+            const slideIntervalTime = 3000; // 3 seconds
+            let autoSlideInterval;
+
+            function createAndLoadImage(url, index) {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = `Banner Image ${index + 1}`;
+                slidesContainer.appendChild(img);
+            }
+
+            // Load all images into the DOM
+            images.forEach((url, index) => {
+                createAndLoadImage(url, index);
+            });
+
+            const allSlides = slidesContainer.querySelectorAll('img');
+
+            function updateSlidePosition() {
+                // Calculate the translation needed to show the current slide
+                slidesContainer.style.transform = `translateX(${-currentSlide * 100}%)`;
+            }
+
+            function goToNextSlide() {
+                currentSlide = (currentSlide + 1) % allSlides.length;
+                updateSlidePosition();
+            }
+
+            function goToPrevSlide() {
+                currentSlide = (currentSlide - 1 + allSlides.length) % allSlides.length;
+                updateSlidePosition();
+            }
+
+            function startAutoSlide() {
+                stopAutoSlide(); // Clear any existing interval first
+                autoSlideInterval = setInterval(goToNextSlide, slideIntervalTime);
+            }
+
+            function stopAutoSlide() {
+                clearInterval(autoSlideInterval);
+            }
+
+            // Event listeners for navigation buttons
+            nextButton.addEventListener('click', () => {
+                stopAutoSlide();
+                goToNextSlide();
+                startAutoSlide(); // Restart auto-slide after manual interaction
+            });
+
+            prevButton.addEventListener('click', () => {
+                stopAutoSlide();
+                goToPrevSlide();
+                startAutoSlide(); // Restart auto-slide after manual interaction
+            });
+
+            // Initial setup
+            if (allSlides.length > 0) {
+                updateSlidePosition(); // Ensure the first slide is visible
+                startAutoSlide(); // Start the automatic slideshow
+            }
+
+            // Pause auto-slide on hover, resume on mouse leave
+            slideshowWrapper.addEventListener('mouseenter', stopAutoSlide);
+            slideshowWrapper.addEventListener('mouseleave', startAutoSlide);
+        });
+
+        // Shop by Brand horizontal scrolling enhancement
+document.addEventListener('DOMContentLoaded', () => {
+    const brandsContainer = document.querySelector('.brands-container');
+    
+    if (brandsContainer) {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        brandsContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            brandsContainer.style.cursor = 'grabbing';
+            startX = e.pageX - brandsContainer.offsetLeft;
+            scrollLeft = brandsContainer.scrollLeft;
+        });
+
+        brandsContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+            brandsContainer.style.cursor = 'grab';
+        });
+
+        brandsContainer.addEventListener('mouseup', () => {
+            isDown = false;
+            brandsContainer.style.cursor = 'grab';
+        });
+
+        brandsContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - brandsContainer.offsetLeft;
+            const walk = (x - startX) * 2; // Scroll speed multiplier
+            brandsContainer.scrollLeft = scrollLeft - walk;
+        });
+
+        // Touch events for mobile
+        brandsContainer.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - brandsContainer.offsetLeft;
+            scrollLeft = brandsContainer.scrollLeft;
+        });
+
+        brandsContainer.addEventListener('touchend', () => {
+            isDown = false;
+        });
+
+        brandsContainer.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.touches[0].pageX - brandsContainer.offsetLeft;
+            const walk = (x - startX) * 2;
+            brandsContainer.scrollLeft = scrollLeft - walk;
+        });
+    }
+});
+    </script>
+
+</body>
+</html>
